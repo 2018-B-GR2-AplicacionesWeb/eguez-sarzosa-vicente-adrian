@@ -37,7 +37,7 @@ console.log(typeof adrian); // object
 
 console.log(10 + 10); // 20
 
-if ('adrian') {
+if ('adrian') { // Truthy
   // Si -
 } else {
   // No
@@ -49,7 +49,7 @@ if (1) {
     // No
 }
 
-if (0) {
+if (0) { // Falsy
     // Si
 } else {
     // No -
