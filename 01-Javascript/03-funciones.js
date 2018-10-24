@@ -38,17 +38,104 @@ function saludar(nombre, funcionMensajeria) {
     funcionMensajeria(saludo);
     return saludo;
 }
-saludar("Vicente",imprimirEnConsola);
+
+saludar("Vicente", function (texto) {
+    console.log(texto);
+});
 
 
+/*
 function imprimirEnConsola(texto){
     console.log(texto);
 }
+*/
 
+// var
+var variable = 'valor'; // NUNCA MAS
 
+let edad = 29; // Mutar objeto = ...
+edad = 30;
 
+const casado = false; // Inmutable
+// casado = true;
 
+const edadV2 = 30; // Inmutable
+// edadV2 = 31;
 
+const nombre = 'Adrian'; // Inmutable
+// nombre = 'Eguez';
+nombre.toUpperCase();
+
+const hijos = null;
+// hijos = 1;
+
+const mascotas = {};
+// mascotas = 1;
+mascotas.cachetes = 'Cachetes';
+mascotas.numero = 1;
+delete mascotas.numero;
+
+const carros = [];
+// carros = [];
+carros[0] = 123;
+carros.push('FINAL');
+carros.pop();
+
+// Anonymous Functions
+
+// asignar a variables
+const saludarV2 = function () {
+    // implementacion
+};
+saludarV2();
+
+// asignar a metodos de un objeto
+const usuario = {
+    nombre: 'Adrian',
+    saludar: function () {
+        return this.nombre
+    }
+};
+usuario.saludar();
+
+// enviar como parametros
+saludar("Adrian", function (texto) {
+    console.log(texto);
+});
+
+// fat arrow functions -> =>
+
+const saludarV3 = () => {
+    // implementacion
+};
+saludarV3();
+
+const usuarioV2 = {
+    nombre: 'Vicente',
+    saludar: () => {
+
+    }
+};
+
+saludar("Adrian", (texto) => {
+    console.log(texto);
+});
+
+const sumarDosNumerosV2 = function (numeroUno, numeroDos) {
+    return numeroUno + numeroDos;
+};
+
+const sumarDosNumerosV3 = (n1, n2) => n1 + n2;
+
+const sumarDosNumerosV4 = (n1, n2) =>{
+    return  n1 + n2
+};
+
+const saludarV5 = saludo => console.log(saludo);
+
+const saludarV6 = saludo => {
+    return console.log(saludo)
+};
 
 
 
