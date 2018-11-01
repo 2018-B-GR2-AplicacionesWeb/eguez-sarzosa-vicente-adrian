@@ -75,6 +75,7 @@ function ejercicio(
     arregloStrings,
     callback) {
     const arregloRespuestas = [];
+
     arregloStrings
         .forEach(
             (string, indice) => {
@@ -92,7 +93,7 @@ function ejercicio(
                         };
                         arregloRespuestas.push(respuesta);
                         const terminoElArreglo = arregloStrings.length === arregloRespuestas.length;
-                        if(terminoElArreglo){
+                        if (terminoElArreglo) {
                             callback(arregloRespuestas);
                         }
 
@@ -102,16 +103,43 @@ function ejercicio(
             }
         );
 
+    /*
+    for (let i = 0; i < arregloStrings.length; i++) {
+        fs.writeFile(
+            `${i}-${arregloStrings[i]}.txt`,
+            arregloStrings[i],
+            function (err) {
+                const respuesta = {
+                    nombreArchivo: `${i}-${arregloStrings[i]}.txt`,
+                    contenidoArchivo: arregloStrings[i],
+                    error: err
+                };
+                arregloRespuestas.push(respuesta);
+                const terminoElArreglo = arregloStrings.length === arregloRespuestas.length;
+                if (terminoElArreglo) {
+                    callback(arregloRespuestas);
+                }
+
+            }
+        )
+    }
+    */
 
 }
 
 
 ejercicio(
-    ['A','B','C'],
-    (arregloRespuestas)=>{
+    ['A', 'B', 'C'],
+    (arregloRespuestas) => {
         console.log(arregloRespuestas);
     }
 );
+
+
+
+
+
+
 
 
 
