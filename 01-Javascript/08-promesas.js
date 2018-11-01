@@ -31,7 +31,7 @@ const promesaEscritura = (
                     if (error) {
                         reject(error);
                     } else {
-                        resolve(contenidoLeido);
+                        resolve(contenidoArchivo);
                     }
                 }
             );
