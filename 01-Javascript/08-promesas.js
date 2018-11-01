@@ -42,8 +42,17 @@ const promesaEscritura = (
 console.log(promesa);
 promesa('07-texto.txt')
     .then(
-        (numero) => {
-            console.log('Ok', numero);
+        (contenido) => {
+            console.log('Ok', contenido);
+            return promesaEscritura(
+                '07-texto.txt',
+                contenido + 'Nuevo Contenido');
+            // Promesa
+        }
+    )
+    .then(
+        (contenidoCompleto) => {
+            console.log(contenidoCompleto);
         }
     )
     .catch(
