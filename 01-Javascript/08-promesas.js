@@ -40,7 +40,7 @@ const promesaEscritura = (
 };
 
 console.log(promesa);
-promesa('07-texto.txt')
+promesa('099-texto.txt')
     .then(
         (contenido) => {
             console.log('Ok', contenido);

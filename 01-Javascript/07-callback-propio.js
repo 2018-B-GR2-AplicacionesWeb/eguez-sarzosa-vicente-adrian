@@ -44,6 +44,49 @@ function appendFile(nombreArchivo,
     );
 }
 
+function appendFilePromesa(nombreArchivo,
+                           contenidoArchivo){
+    return new Promise(
+        (resolve,reject)=>{
+            fs.readFile(
+                nombreArchivo,
+                'utf-8',
+                (error, contenidoLeido) => {
+                    if (error) {
+                        const contenido = contenidoArchivo;
+                        fs.writeFile(
+                            nombreArchivo,
+                            contenido,
+                            (err) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(contenido);
+                                }
+                            }
+                        );
+                    } else {
+                        const contenido = contenidoLeido + contenidoArchivo;
+                        fs.writeFile(
+                            nombreArchivo,
+                            contenido,
+                            (err) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(contenido);
+                                }
+                            }
+                        );
+                    }
+                }
+            );
+        }
+    );
+}
+
+
+
 appendFile(
     '07-texto.txt',
     '\nAdios',
@@ -127,6 +170,40 @@ function ejercicio(
 
 }
 
+const ejercicioPromesa = (arregloStrings)=>{
+    return new Promise(
+        (resolve)=>{
+            const arregloRespuestas = [];
+
+            arregloStrings
+                .forEach(
+                    (string, indice) => {
+                        const nombreArchivo = `${indice}-${string}.txt`;
+                        const contenidoArchio = string;
+
+                        fs.writeFile(
+                            nombreArchivo,
+                            contenidoArchio,
+                            (err) => {
+                                const respuesta = {
+                                    nombreArchivo: nombreArchivo,
+                                    contenidoArchivo: contenidoArchio,
+                                    error: err
+                                };
+                                arregloRespuestas.push(respuesta);
+                                const terminoElArreglo = arregloStrings.length === arregloRespuestas.length;
+                                if (terminoElArreglo) {
+                                    resolve(arregloRespuestas);
+                                }
+
+                            }
+                        )
+
+                    }
+                );
+        }
+    );
+};
 
 ejercicio(
     ['A', 'B', 'C'],
