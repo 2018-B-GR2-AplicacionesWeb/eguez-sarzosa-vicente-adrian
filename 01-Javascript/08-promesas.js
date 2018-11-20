@@ -1,6 +1,7 @@
 // 08-promesas.js
 const fs = require('fs');
 
+
 const promesa = (nombreArchivo) => {
     return new Promise(
         (resolve, reject) => {
