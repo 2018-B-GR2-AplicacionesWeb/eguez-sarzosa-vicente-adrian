@@ -1,4 +1,16 @@
-import {Get, Controller, Request, Response,Headers, HttpCode, HttpException, Query, Param} from '@nestjs/common';
+import {
+    Get,
+    Controller,
+    Request,
+    Response,
+    Headers,
+    HttpCode,
+    HttpException,
+    Query,
+    Param,
+    Res,
+    Post
+} from '@nestjs/common';
 import {AppService} from './app.service';
 import {Observable, of} from "rxjs";
 
@@ -13,6 +25,21 @@ import {Observable, of} from "rxjs";
 // SE EJECUTA ANTES DE ALGO
 @Controller('Usuario') // Decoradores!
 export class AppController {
+
+    usuarios = [
+        {
+            nombre: 'Adrian',
+            id: 1
+        },
+        {
+            nombre: 'Vicente',
+            id: 2
+        },
+        {
+            nombre: 'Carolina',
+            id: 3
+        }
+    ];
 
     @Get('saludar')
     saludar(
@@ -31,14 +58,6 @@ export class AppController {
     ): string { // metodo!
         return idUsuario;
     }
-
-
-
-
-
-
-
-
 
 
     @Get('despedirse')
@@ -67,7 +86,35 @@ export class AppController {
     }
 
 
+    @Get('inicio')
+    inicio(
+        @Res() response
+    ) {
+        response.render('inicio', {
+            nombre: 'Adrian',
+            arreglo: this.usuarios
+        });
+    }
 
+    @Post('borrar/:idUsuario')
+    borrar(
+        @Param('idUsuario') idUsuario,
+        @Res() response
+    ) {
+        const indiceUsuario = this
+            .usuarios
+            .findIndex(
+                (usuario) => usuario.id === Number(idUsuario)
+            );
+
+        this.usuarios.splice(indiceUsuario,1);
+
+
+        response.render('inicio', {
+            nombre: 'Adrian',
+            arreglo: this.usuarios
+        });
+    }
 
 
 }
