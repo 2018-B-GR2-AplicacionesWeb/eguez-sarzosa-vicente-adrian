@@ -14,10 +14,9 @@
     <div>
         <label for="biografia">Biografía</label>
         <textarea name="biografia"
-                  value="<%= creando ? '' : usuario.biografia %>"
                   id="biografia"
                   cols="30"
-                  rows="3">
+                  rows="3"><%= creando ? '' : usuario.biografia %>
         </textarea>
     </div>
     <button type="reset">Resetear formulario</button>
