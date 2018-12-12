@@ -52,6 +52,16 @@ export class UsuarioService {
         return usuarioBorrado;
     }
 
+    buscarPorId(idUsuario: number) {
+        return this.usuarios
+        // .find(u=>u.id === idUsuario);
+            .find(
+                (usuario) => {
+                    return usuario.id === idUsuario
+                }
+            );
+    }
+
 
 }
 
