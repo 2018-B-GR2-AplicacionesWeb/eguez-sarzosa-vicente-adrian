@@ -19,6 +19,31 @@ export class UsuarioService {
             id: 3
         }
     ];
+    registroActual = 4;
+
+    crear(nuevoUsuario: Usuario): Usuario {
+        nuevoUsuario.id = this.registroActual;
+        this.registroActual++;
+        this.usuarios.push(nuevoUsuario);
+        return nuevoUsuario;
+    }
+
+    actualizar(idUsuario: number,
+               nuevoUsuario: Usuario): Usuario {
+        const indiceUsuario = this
+            .usuarios
+            .findIndex(
+                (usuario) => usuario.id === idUsuario
+            );
+        this.usuarios[indiceUsuario] = nuevoUsuario;
+        return nuevoUsuario;
+    }
+
+    borrar() {
+
+    }
+
+
 }
 
 interface Usuario {
