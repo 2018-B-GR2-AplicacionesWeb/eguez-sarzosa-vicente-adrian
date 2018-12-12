@@ -39,8 +39,17 @@ export class UsuarioService {
         return nuevoUsuario;
     }
 
-    borrar() {
-
+    borrar(idUsuario: number): Usuario {
+        const indiceUsuario = this
+            .usuarios
+            .findIndex(
+                (usuario) => usuario.id === idUsuario
+            );
+        const usuarioBorrado = JSON.parse(
+            JSON.stringify(this.usuarios[indiceUsuario])
+        );
+        this.usuarios.splice(indiceUsuario, 1);
+        return usuarioBorrado;
     }
 
 
