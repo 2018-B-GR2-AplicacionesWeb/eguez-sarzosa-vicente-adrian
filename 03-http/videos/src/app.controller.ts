@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common';
 import {AppService} from './app.service';
 import {Observable, of} from "rxjs";
+import {UsuarioService} from "./usuario.service";
 
 // http://192.168.1.2:3000/Usuario/saludar     METODO -> GET
 // http://192.168.1.2:3000/Usuario/salir   METODO -> POST
@@ -26,6 +27,14 @@ import {Observable, of} from "rxjs";
 @Controller('Usuario') // Decoradores!
 export class AppController {
 
+    // CONSTRUCTOR NO ES UN CONSTRUCTOR NORMAL!!!
+
+    constructor(
+        private readonly _usuarioService: UsuarioService,
+        // private readonly _appService:AppService,
+    ) {
+
+    }
 
 
     @Get('saludar')
@@ -79,28 +88,18 @@ export class AppController {
     ) {
         response.render('inicio', {
             nombre: 'Adrian',
-            arreglo: this.usuarios
+            arreglo: this._usuarioService.usuarios
         });
     }
 
     @Post('borrar/:idUsuario')
     borrar(
-        @Param('idUsuario') idUsuario,
+        @Param('idUsuario') idUsuario: string,
         @Res() response
     ) {
-        const indiceUsuario = this
-            .usuarios
-            .findIndex(
-                (usuario) => usuario.id === Number(idUsuario)
-            );
+        this._usuarioService.borrar(Number(idUsuario));
 
-        this.usuarios.splice(indiceUsuario,1);
-
-
-        response.render('inicio', {
-            nombre: 'Adrian',
-            arreglo: this.usuarios
-        });
+        response.redirect('/Usuario/inicio');
     }
 
 
