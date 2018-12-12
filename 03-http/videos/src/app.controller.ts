@@ -26,20 +26,7 @@ import {Observable, of} from "rxjs";
 @Controller('Usuario') // Decoradores!
 export class AppController {
 
-    usuarios = [
-        {
-            nombre: 'Adrian',
-            id: 1
-        },
-        {
-            nombre: 'Vicente',
-            id: 2
-        },
-        {
-            nombre: 'Carolina',
-            id: 3
-        }
-    ];
+
 
     @Get('saludar')
     saludar(
