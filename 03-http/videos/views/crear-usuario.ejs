@@ -1,4 +1,4 @@
-<h1> <%= usuario ? 'Actualizar' : 'Crear' %>     Usuario</h1>
+<h1> <%= typeof usuario !== "undefined" ? 'Actualizar' : 'Crear' %>     Usuario</h1>
 <p>*** un nuevo usuario.</p>
 <form   action="/Usuario/****-usuario"
         method="POST">
