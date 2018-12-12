@@ -116,8 +116,14 @@ export class AppController {
         @Param('idUsuario') idUsuario: string,
         @Res() response
     ) {
+        const usuarioAActualizar = this
+            ._usuarioService
+            .buscarPorId(Number(idUsuario));
+
         response.render(
-            'crear-usuario'
+            'crear-usuario', {
+                usuario: usuarioAActualizar
+            }
         )
     }
 
