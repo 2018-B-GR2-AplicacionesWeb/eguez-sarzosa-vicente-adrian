@@ -102,5 +102,13 @@ export class AppController {
         response.redirect('/Usuario/inicio');
     }
 
+    @Get('crear-usuario')
+    crearUsuario(
+        @Res() response
+    ) {
+        response.render(
+            'crear-usuario'
+        )
+    }
 
 }
