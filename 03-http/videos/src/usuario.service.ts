@@ -55,7 +55,7 @@ export class UsuarioService {
 
 }
 
-interface Usuario {
+export interface Usuario {
     id: number;
     nombre: string;
     biografia: string;

@@ -9,11 +9,11 @@ import {
     Query,
     Param,
     Res,
-    Post
+    Post, Body
 } from '@nestjs/common';
 import {AppService} from './app.service';
 import {Observable, of} from "rxjs";
-import {UsuarioService} from "./usuario.service";
+import {Usuario, UsuarioService} from "./usuario.service";
 
 // http://192.168.1.2:3000/Usuario/saludar     METODO -> GET
 // http://192.168.1.2:3000/Usuario/salir   METODO -> POST
@@ -109,6 +109,27 @@ export class AppController {
         response.render(
             'crear-usuario'
         )
+    }
+
+    @Get('actualizar-usuario/:idUsuario')
+    actualizarUsuario(
+        @Param('idUsuario') idUsuario: string,
+        @Res() response
+    ) {
+        response.render(
+            'crear-usuario'
+        )
+    }
+
+    @Post('crear-usuario')
+    crearUsuarioFormulario(
+        @Body() usuario: Usuario,
+        @Res() response
+    ) {
+
+        this._usuarioService.crear(usuario);
+
+        response.redirect('/Usuario/inicio')
     }
 
 }
