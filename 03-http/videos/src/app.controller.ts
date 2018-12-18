@@ -85,12 +85,15 @@ export class AppController {
     @Get('inicio')
     inicio(
         @Res() response,
-        @Query('accion') accion:string,
-        @Query('nombre') nombre:string
+        @Query('accion') accion: string,
+        @Query('nombre') nombre: string,
+        @Query('busqueda') busqueda: string,
     ) {
+
+
         let mensaje; // undefined
 
-        if(accion && nombre){
+        if (accion && nombre) {
             switch (accion) {
                 case 'actualizar':
                     mensaje = `Registro ${nombre} actualizado`;
@@ -107,7 +110,7 @@ export class AppController {
         response.render('inicio', {
             nombre: 'Adrian',
             arreglo: this._usuarioService.usuarios,
-            mensaje:mensaje
+            mensaje: mensaje
         });
     }
 
@@ -121,7 +124,7 @@ export class AppController {
 
         const parametrosConsulta = `?accion=borrar&nombre=${usuario.nombre}`;
 
-        response.redirect('/Usuario/inicio'+parametrosConsulta);
+        response.redirect('/Usuario/inicio' + parametrosConsulta);
     }
 
     @Get('crear-usuario')
@@ -163,7 +166,7 @@ export class AppController {
 
         const parametrosConsulta = `?accion=actualizar&nombre=${usuario.nombre}`;
 
-        response.redirect('/Usuario/inicio'+parametrosConsulta);
+        response.redirect('/Usuario/inicio' + parametrosConsulta);
 
     }
 
@@ -178,7 +181,7 @@ export class AppController {
 
         const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
 
-        response.redirect('/Usuario/inicio'+parametrosConsulta)
+        response.redirect('/Usuario/inicio' + parametrosConsulta)
     }
 
 }
