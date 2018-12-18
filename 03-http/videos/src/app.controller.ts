@@ -107,13 +107,17 @@ export class AppController {
             }
         }
 
-        if(busqueda){
-
+        let usuarios: Usuario[];
+        if (busqueda) {
+            usuarios = this._usuarioService
+                .buscarPorNombreOBiografia(busqueda);
+        } else {
+            usuarios = this._usuarioService.usuarios
         }
 
         response.render('inicio', {
             nombre: 'Adrian',
-            arreglo: this._usuarioService.usuarios,
+            arreglo: usuarios,
             mensaje: mensaje
         });
     }

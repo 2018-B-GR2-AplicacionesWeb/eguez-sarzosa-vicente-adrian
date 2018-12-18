@@ -67,12 +67,10 @@ export class UsuarioService {
             (usuario)=>{
 
                 // Si la busqueda contiene algo del nombre
-
                 const tieneAlgoEnElnombre = usuario
                     .nombre.includes(busqueda); // True / False
 
                 // Si la busqueda contiene algo de la bio
-
                 const tieneAlgoEnLaBio = usuario
                     .biografia.includes(busqueda);// True / False
 
