@@ -4,15 +4,13 @@
     }
 </style>
 
-<% const existeMensaje = typeof mensaje !== "undefined" ? true : false;%>
+<% const existeMensaje = typeof mensaje !== "undefined" ? true : false; %>
 
-<%if(existeMensaje){%>
+<% if(existeMensaje){ %>
 
-    <p>MENSAJE: <%= mensaje%></p>
+    <p>MENSAJE: <%= mensaje %></p>
 
-<%}%>
-
-
+<% } %>
 <% var apellido = 'Eguez' %>
 <!-- h1 -> Header 1 -->
 <h1>  <%= nombre %> <%= apellido %>  </h1>
@@ -22,14 +20,35 @@
 
 
 <script>
-    function holaMundo(){
+    function holaMundo(evento) {
+        console.log(evento)
+
+        evento.preventDefault();
+
+        const respuesta = confirm('¿Estas seguro?')
+
         console.log('Hola mundo')
     }
+
+    function borrar(evento){
+
+        const respuesta = confirm('¿Estas seguro?')
+
+        if(!respuesta){
+            event.preventDefault();
+        }
+
+    }
+
+
+
 </script>
 
 
-<button onclick="holaMundo()"> click </button>
-
+<a href="http://www.google.com"
+   onclick="holaMundo(event)">
+    click
+</a>
 
 
 <form action="/Usuario/inicio"
@@ -50,9 +69,6 @@
 </a>
 
 
-
-
-
 <h2> Arreglo </h2>
 
 <!-- ul -> unordered list-->
@@ -60,9 +76,9 @@
 <!-- li -> list item -->
 <!--
 <ul>
-<% //arreglo.forEach((numero)=>{   %>
-    <li><%= // numero  %></li>
-<%   // })    %>
+<% //arreglo.forEach((numero)=>{    %>
+    <li><%= // numero   %></li>
+<%    // })     %>
 </ul>
 -->
 
@@ -77,23 +93,24 @@
     </tr>
     <!-- tr -> table row -->
     <% arreglo.forEach((usuario)=>{ %>
-        <tr>
-            <!-- td -> table detail -->
-            <td><%=usuario.nombre%></td>
-            <td><%=usuario.biografia%></td>
-            <td>
-                <form action="/Usuario/borrar/<%=usuario.id%>"
-                      method="post"
-                >
-                    <!--<button type="button">Yo no</button>-->
-                    <!--<button>Yo si</button>-->
-                    <button type="submit">Eliminar</button>
-                </form>
-                <a href="/Usuario/actualizar-usuario/<%=usuario.id%>">
-                    <button>Actualizar</button>
-                </a>
-            </td>
-        </tr>
+    <tr>
+        <!-- td -> table detail -->
+        <td><%= usuario.nombre %></td>
+        <td><%= usuario.biografia %></td>
+        <td>
+            <form action="/Usuario/borrar/<%= usuario.id %>"
+                  method="post"
+            >
+                <!--<button type="button">Yo no</button>-->
+                <!--<button>Yo si</button>-->
+                <button type="submit"
+                        onclick="borrar(event)">Eliminar</button>
+            </form>
+            <a href="/Usuario/actualizar-usuario/<%= usuario.id %>">
+                <button>Actualizar</button>
+            </a>
+        </td>
+    </tr>
     <% }) %>
 </table>
 
