@@ -127,6 +127,23 @@ export class AppController {
         )
     }
 
+
+    @Post('actualizar-usuario/:idUsuario')
+    actualizarUsuarioFormulario(
+        @Param('idUsuario') idUsuario: string,
+        @Res() response,
+        @Body() usuario: Usuario
+    ) {
+        usuario.id = +idUsuario;
+
+        this._usuarioService
+            .actualizar(+idUsuario, usuario);
+
+        response.redirect('/Usuario/inicio');
+
+    }
+
+
     @Post('crear-usuario')
     crearUsuarioFormulario(
         @Body() usuario: Usuario,
