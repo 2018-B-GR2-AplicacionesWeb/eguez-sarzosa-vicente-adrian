@@ -84,11 +84,30 @@ export class AppController {
 
     @Get('inicio')
     inicio(
-        @Res() response
+        @Res() response,
+        @Query('accion') accion:string,
+        @Query('nombre') nombre:string
     ) {
+        let mensaje; // undefined
+
+        if(accion && nombre){
+            switch (accion) {
+                case 'actualizar':
+                    mensaje = `Registro ${nombre} actualizado`;
+                    break;
+                case 'borrar':
+                    mensaje = `Registro ${nombre} eliminado`;
+                    break;
+                case 'crear':
+                    mensaje = `Registro ${nombre} creado`;
+                    break;
+            }
+        }
+
         response.render('inicio', {
             nombre: 'Adrian',
-            arreglo: this._usuarioService.usuarios
+            arreglo: this._usuarioService.usuarios,
+            mensaje:mensaje
         });
     }
 
@@ -97,9 +116,12 @@ export class AppController {
         @Param('idUsuario') idUsuario: string,
         @Res() response
     ) {
-        this._usuarioService.borrar(Number(idUsuario));
+        const usuario = this._usuarioService
+            .borrar(Number(idUsuario));
 
-        response.redirect('/Usuario/inicio');
+        const parametrosConsulta = `?accion=borrar&nombre=${usuario.nombre}`;
+
+        response.redirect('/Usuario/inicio'+parametrosConsulta);
     }
 
     @Get('crear-usuario')
@@ -139,7 +161,9 @@ export class AppController {
         this._usuarioService
             .actualizar(+idUsuario, usuario);
 
-        response.redirect('/Usuario/inicio');
+        const parametrosConsulta = `?accion=actualizar&nombre=${usuario.nombre}`;
+
+        response.redirect('/Usuario/inicio'+parametrosConsulta);
 
     }
 
@@ -152,7 +176,9 @@ export class AppController {
 
         this._usuarioService.crear(usuario);
 
-        response.redirect('/Usuario/inicio')
+        const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
+
+        response.redirect('/Usuario/inicio'+parametrosConsulta)
     }
 
 }

@@ -4,6 +4,14 @@
     }
 </style>
 
+<% const existeMensaje = typeof mensaje !== "undefined" ? true : false;%>
+
+<%if(existeMensaje){%>
+
+    <p>MENSAJE: <%= mensaje%></p>
+
+<%}%>
+
 
 <% var apellido = 'Eguez' %>
 <!-- h1 -> Header 1 -->
