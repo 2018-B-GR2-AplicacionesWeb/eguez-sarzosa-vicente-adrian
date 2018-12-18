@@ -107,6 +107,10 @@ export class AppController {
             }
         }
 
+        if(busqueda){
+
+        }
+
         response.render('inicio', {
             nombre: 'Adrian',
             arreglo: this._usuarioService.usuarios,
