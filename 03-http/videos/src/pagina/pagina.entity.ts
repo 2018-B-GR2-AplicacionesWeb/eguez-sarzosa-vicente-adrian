@@ -9,7 +9,7 @@ export class PaginaEntity {
 
     @Column()
     texto: string;
-
+    // pagina.entity.ts
     @ManyToOne(
         type => LibroEntity,
         libro => libro.paginas

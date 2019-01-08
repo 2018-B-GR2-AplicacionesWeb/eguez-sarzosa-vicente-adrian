@@ -5,6 +5,7 @@ import {UsuarioModule} from "./usuario/usuario.module";
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {UsuarioEntity} from "./usuario/usuario-entity";
 import {LibroEntity} from "./libro/libro.entity";
+import {PaginaEntity} from "./pagina/pagina.entity";
 
 @Module({
     imports: [
@@ -20,7 +21,8 @@ import {LibroEntity} from "./libro/libro.entity";
                 dropSchema: false,
                 entities: [
                     UsuarioEntity,
-                    LibroEntity
+                    LibroEntity,
+                    PaginaEntity
                 ]
             }),
         UsuarioModule

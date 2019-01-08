@@ -23,7 +23,7 @@ export class LibroEntity {
         usuario => usuario.libros, // Campo donde nos guarda
     )
     usuario: UsuarioEntity;
-
+    // libro.entity.ts
     @OneToMany(
         type => PaginaEntity,
         pagina => pagina.libro
