@@ -116,12 +116,12 @@ export class UsuarioController {
 
 
     @Post('crear-usuario')
-    crearUsuarioFormulario(
+    async crearUsuarioFormulario(
         @Body() usuario: Usuario,
         @Res() response
     ) {
 
-        this._usuarioService.crear(usuario);
+        await this._usuarioService.crear(usuario);
 
         const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
 
