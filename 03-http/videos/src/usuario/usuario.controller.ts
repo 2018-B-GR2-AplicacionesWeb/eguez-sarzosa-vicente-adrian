@@ -2,6 +2,7 @@
 import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {Usuario, UsuarioService} from "./usuario.service";
 import {UsuarioEntity} from "./usuario-entity";
+import {Like} from "typeorm";
 
 @Controller('Usuario')
 export class UsuarioController {
@@ -42,8 +43,12 @@ export class UsuarioController {
 
             const consulta = {
                 where: [
-                    {nombre: busqueda},
-                    {biografia: busqueda}
+                    {
+                        nombre: Like(`%${busqueda}%`)
+                    },
+                    {
+                        biografia: Like(`%${busqueda}%`)
+                    }
                 ]
             };
             usuarios = await this._usuarioService.buscar(consulta);
@@ -64,7 +69,7 @@ export class UsuarioController {
         @Res() response
     ) {
         const usuarioEncontrado = await this._usuarioService
-                                            .buscarPorId(+idUsuario);
+            .buscarPorId(+idUsuario);
 
         await this._usuarioService.borrar(Number(idUsuario));
 

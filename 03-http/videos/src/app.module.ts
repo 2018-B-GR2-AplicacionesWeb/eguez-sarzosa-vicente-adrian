@@ -4,6 +4,7 @@ import {AppService} from './app.service';
 import {UsuarioModule} from "./usuario/usuario.module";
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {UsuarioEntity} from "./usuario/usuario-entity";
+import {LibroEntity} from "./libro/libro.entity";
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import {UsuarioEntity} from "./usuario/usuario-entity";
                 synchronize: true,
                 dropSchema: false,
                 entities: [
-                    UsuarioEntity
+                    UsuarioEntity,
+                    LibroEntity
                 ]
             }),
         UsuarioModule
