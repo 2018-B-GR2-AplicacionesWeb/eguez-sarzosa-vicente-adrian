@@ -51,37 +51,29 @@ export class UsuarioService {
     }
 
     actualizar(idUsuario: number,
-               nuevoUsuario: Usuario): Usuario {
-        const indiceUsuario = this
-            .usuarios
-            .findIndex(
-                (usuario) => usuario.id === idUsuario
-            );
-        this.usuarios[indiceUsuario] = nuevoUsuario;
-        return nuevoUsuario;
+               nuevoUsuario: Usuario): Promise<UsuarioEntity> {
+
+        nuevoUsuario.id = idUsuario;
+
+        const usuarioEntity = this._usuarioRepository.create(nuevoUsuario);
+
+        return this._usuarioRepository.save(usuarioEntity);
     }
 
-    borrar(idUsuario: number): Usuario {
-        const indiceUsuario = this
-            .usuarios
-            .findIndex(
-                (usuario) => usuario.id === idUsuario
-            );
-        const usuarioBorrado = JSON.parse(
-            JSON.stringify(this.usuarios[indiceUsuario])
-        );
-        this.usuarios.splice(indiceUsuario, 1);
-        return usuarioBorrado;
+    borrar(idUsuario: number): Promise<UsuarioEntity> {
+
+        // CREA UNA INSTANCIA DE LA ENTIDAD
+        const usuarioEntityAEliminar = this._usuarioRepository
+            .create({
+                id: idUsuario
+            });
+
+
+        return this._usuarioRepository.remove(usuarioEntityAEliminar)
     }
 
-    buscarPorId(idUsuario: number) {
-        return this.usuarios
-        // .find(u=>u.id === idUsuario);
-            .find(
-                (usuario) => {
-                    return usuario.id === idUsuario
-                }
-            );
+    buscarPorId(idUsuario: number): Promise<UsuarioEntity> {
+        return this._usuarioRepository.findOne(idUsuario);
     }
 
     buscarPorNombreOBiografia(busqueda: string): Usuario[] {
