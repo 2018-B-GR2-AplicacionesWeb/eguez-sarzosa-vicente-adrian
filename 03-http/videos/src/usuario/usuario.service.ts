@@ -1,4 +1,8 @@
 import {Injectable} from "@nestjs/common";
+import {Repository} from "typeorm";
+import {InjectRepository} from '@nestjs/typeorm';
+import {UsuarioEntity} from "./usuario-entity";
+import {FindManyOptions} from "../../node_modules/typeorm/find-options/FindManyOptions";
 
 @Injectable()
 export class UsuarioService {
@@ -21,11 +25,29 @@ export class UsuarioService {
     ];
     registroActual = 4;
 
-    crear(nuevoUsuario: Usuario): Usuario {
-        nuevoUsuario.id = this.registroActual;
-        this.registroActual++;
-        this.usuarios.push(nuevoUsuario);
-        return nuevoUsuario;
+    // Inyectar Dependencias
+    constructor(
+        @InjectRepository(UsuarioEntity)
+        private readonly _usuarioRepository: Repository<UsuarioEntity>,
+    ) {
+    }
+
+    buscar(parametros?: FindManyOptions<UsuarioEntity>)
+        : Promise<UsuarioEntity[]> {
+        return this._usuarioRepository.find(parametros);
+    }
+
+    async crear(nuevoUsuario: Usuario): Promise<UsuarioEntity> {
+
+        // Instanciar una entidad -> .create()
+        const usuarioEntity = this._usuarioRepository
+            .create(nuevoUsuario);
+
+        // Guardar una entidad en la BDD -> .save()
+        const usuarioCreado = await this._usuarioRepository
+            .save(usuarioEntity);
+
+        return usuarioCreado;
     }
 
     actualizar(idUsuario: number,
@@ -62,9 +84,9 @@ export class UsuarioService {
             );
     }
 
-    buscarPorNombreOBiografia(busqueda:string): Usuario[]{
+    buscarPorNombreOBiografia(busqueda: string): Usuario[] {
         return this.usuarios.filter(
-            (usuario)=>{
+            (usuario) => {
 
                 // Si la busqueda contiene algo del nombre
                 const tieneAlgoEnElnombre = usuario

@@ -1,6 +1,7 @@
 // usuario.controller.ts
 import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {Usuario, UsuarioService} from "./usuario.service";
+import {UsuarioEntity} from "./usuario-entity";
 
 @Controller('Usuario')
 export class UsuarioController {
@@ -12,7 +13,7 @@ export class UsuarioController {
     }
 
     @Get('inicio')
-    inicio(
+    async inicio(
         @Res() response,
         @Query('accion') accion: string,
         @Query('nombre') nombre: string,
@@ -36,12 +37,18 @@ export class UsuarioController {
             }
         }
 
-        let usuarios: Usuario[];
+        let usuarios: UsuarioEntity[];
         if (busqueda) {
-            usuarios = this._usuarioService
-                .buscarPorNombreOBiografia(busqueda);
+
+            const consulta = {
+                where: [
+                    { nombre: busqueda},
+                    { biografia: busqueda}
+                ]
+            };
+            usuarios = await this._usuarioService.buscar(consulta);
         } else {
-            usuarios = this._usuarioService.usuarios
+            usuarios = await this._usuarioService.buscar();
         }
 
         response.render('inicio', {
