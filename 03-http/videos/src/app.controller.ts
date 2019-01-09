@@ -9,7 +9,7 @@ import {
     Query,
     Param,
     Res,
-    Post, Body, Session
+    Post, Body, Session, BadRequestException
 } from '@nestjs/common';
 import {AppService} from './app.service';
 import {Observable, of} from "rxjs";
@@ -88,9 +88,20 @@ export class AppController {
 
     @Post('login')
     @HttpCode(200)
-    loginMetodo(
-
+    async loginMetodo(
+        @Body('username') username: string,
+        @Body('password') password: string,
+        
     ) {
+        const identificado = await this._usuarioService
+            .login(username, password);
+
+        if (identificado) {
+
+            return 'ok';
+        } else {
+            throw new BadRequestException({mensaje: 'Error login'})
+        }
 
     }
 
