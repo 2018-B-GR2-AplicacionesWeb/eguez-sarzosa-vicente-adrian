@@ -116,5 +116,16 @@ export class AppController {
         response.render('login');
     }
 
+    @Get('logout')
+    logout(
+        @Res() response,
+        @Session() sesion,
+    ) {
+        sesion.usuario = undefined;
+        sesion.destroy();
+        response.redirect('/login');
+
+    }
+
 
 }
