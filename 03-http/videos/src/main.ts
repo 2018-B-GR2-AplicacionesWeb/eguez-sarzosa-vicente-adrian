@@ -33,10 +33,10 @@ async function bootstrap() {
     app.use(express.static('publico'));
 
     // /bootstrap/css/bootstrap.css
-
     // /bootstrap/js/bootstrap.js
 
     await app.listen(3000);
+
 }
 
 bootstrap();
