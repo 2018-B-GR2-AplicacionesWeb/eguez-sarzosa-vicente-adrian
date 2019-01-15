@@ -6,7 +6,9 @@ import {AppModule} from './app.module';
 //import {} from './mi-codigo';
 //const a = require('./mi-codigo').a;
 // const session = require('express-session')
+import * as express from 'express';
 import * as session from 'express-session';
+
 const FileStore = require('session-file-store')(session);
 
 
@@ -17,7 +19,7 @@ async function bootstrap() {
     //const FileStore = require('session-file-store')(session);
     app.use(
         session({
-            name:'server-session-id',
+            name: 'server-session-id',
             secret: 'No sera de tomar un traguito',
             resave: false,
             saveUninitialized: true,
@@ -26,7 +28,15 @@ async function bootstrap() {
         })
     );
 
+    // Configurar el servidor WEB
+
+    app.use(express.static('publico'));
+
+    // /bootstrap/css/bootstrap.css
+    // /bootstrap/js/bootstrap.js
+
     await app.listen(3000);
+
 }
 
 bootstrap();
