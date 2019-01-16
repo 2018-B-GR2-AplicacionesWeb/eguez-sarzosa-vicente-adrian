@@ -6,3 +6,15 @@
 .quitar-decoracion:hover {
     text-decoration: none;
 }
+
+.btn-buscar {
+    margin-top: 31px;
+}
+
+.animated {
+    animation-duration: 2s;
+}
+
+
+
+
