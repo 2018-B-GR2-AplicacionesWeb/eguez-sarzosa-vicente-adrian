@@ -145,7 +145,7 @@ export class UsuarioController {
         const hayErrores = errores.length > 0;
 
         if(hayErrores){
-
+            console.error(errores);
             response.redirect('/Usuario/crear-usuario?error=Hay errores');
 
         }else{
