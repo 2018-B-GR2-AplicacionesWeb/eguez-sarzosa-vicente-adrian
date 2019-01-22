@@ -142,12 +142,37 @@ export class UsuarioController {
 
 
 
+// DTO -> Data Transfer Object
+
+// CREAR  UsuarioCreateDTO
+
+// nombre*
+// cedula*
+// password*
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
 
+// ACTUALIZAR UsuarioUpdateDTO
 
+// nombre
+// password
+// cedula -> no actualizamos la cedula
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
+// VISUALIZANDO DTO
 
-
+// nombre
+// cedula
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
 
 
