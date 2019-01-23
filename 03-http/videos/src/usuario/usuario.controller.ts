@@ -15,12 +15,7 @@ export class UsuarioController {
 
     }
 
-    @Get(':id')
-    obtenerPorId(
-        @Param('id') idUsuario
-    ){
-        return this._usuarioService.buscarPorId(+idUsuario);
-    }
+
 
 
 
@@ -167,6 +162,14 @@ export class UsuarioController {
 
 
 
+    }
+
+    @Get(':id')
+    obtenerPorId(
+        @Param('id') idUsuario
+    ){
+        console.log(idUsuario);
+        return this._usuarioService.buscarPorId(+idUsuario);
     }
 }
 

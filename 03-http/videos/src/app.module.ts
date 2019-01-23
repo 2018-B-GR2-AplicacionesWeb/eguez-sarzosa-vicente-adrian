@@ -18,7 +18,7 @@ import {PaginaEntity} from "./pagina/pagina.entity";
                 password: 'root',
                 database: 'web-adrian',
                 synchronize: true,
-                dropSchema: true,
+                dropSchema: false,
                 entities: [
                     UsuarioEntity,
                     LibroEntity,
