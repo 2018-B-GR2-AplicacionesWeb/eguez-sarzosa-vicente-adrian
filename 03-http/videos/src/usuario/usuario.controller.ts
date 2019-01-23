@@ -3,6 +3,8 @@ import {Body, Controller, Get, Param, Post, Query, Res} from "@nestjs/common";
 import {Usuario, UsuarioService} from "./usuario.service";
 import {UsuarioEntity} from "./usuario-entity";
 import {Like} from "typeorm";
+import {UsuarioCreateDto} from "./dto/usuario-create.dto";
+import {validate, ValidationError} from "class-validator";
 
 @Controller('Usuario')
 export class UsuarioController {
@@ -12,6 +14,10 @@ export class UsuarioController {
     ) {
 
     }
+
+
+
+
 
     @Get('inicio')
     async inicio(
@@ -23,16 +29,20 @@ export class UsuarioController {
 
 
         let mensaje; // undefined
+        let clase; // undefined
 
         if (accion && nombre) {
             switch (accion) {
                 case 'actualizar':
+                    clase = 'info';
                     mensaje = `Registro ${nombre} actualizado`;
                     break;
                 case 'borrar':
+                    clase = 'danger';
                     mensaje = `Registro ${nombre} eliminado`;
                     break;
                 case 'crear':
+                    clase = 'success';
                     mensaje = `Registro ${nombre} creado`;
                     break;
             }
@@ -59,7 +69,8 @@ export class UsuarioController {
         response.render('inicio', {
             nombre: 'Adrian',
             arreglo: usuarios,
-            mensaje: mensaje
+            mensaje: mensaje,
+            accion: clase
         });
     }
 
@@ -126,23 +137,75 @@ export class UsuarioController {
         @Body() usuario: Usuario,
         @Res() response
     ) {
+        const usuarioValidado = new UsuarioCreateDto();
 
-        await this._usuarioService.crear(usuario);
+        usuarioValidado.nombre = usuario.nombre;
+        usuarioValidado.biografia = usuario.biografia;
+        usuarioValidado.username = usuario.username;
+        usuarioValidado.password = usuario.password;
 
-        const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
+        const errores: ValidationError[] = await validate(usuarioValidado);
 
-        response.redirect('/Usuario/inicio' + parametrosConsulta)
+        const hayErrores = errores.length > 0;
+
+        if(hayErrores){
+            console.error(errores);
+            response.redirect('/Usuario/crear-usuario?error=Hay errores');
+
+        }else{
+            await this._usuarioService.crear(usuario);
+
+            const parametrosConsulta = `?accion=crear&nombre=${usuario.nombre}`;
+
+            response.redirect('/Usuario/inicio' + parametrosConsulta);
+        }
+
+
+
+    }
+
+    @Get(':id')
+    obtenerPorId(
+        @Param('id') idUsuario
+    ){
+        console.log(idUsuario);
+        return this._usuarioService.buscarPorId(+idUsuario);
     }
 }
 
 
 
+// DTO -> Data Transfer Object
+
+// CREAR  UsuarioCreateDTO
+
+// nombre*
+// cedula*
+// password*
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
 
+// ACTUALIZAR UsuarioUpdateDTO
 
+// nombre
+// password
+// cedula -> no actualizamos la cedula
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
+// VISUALIZANDO DTO
 
-
+// nombre
+// cedula
+// direccion
+// numeroTelefono
+// celular
+// apodo
 
 
 
