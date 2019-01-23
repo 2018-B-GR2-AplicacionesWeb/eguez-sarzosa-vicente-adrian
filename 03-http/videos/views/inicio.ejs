@@ -276,9 +276,9 @@
     <!-- li -> list item -->
     <!--
 <ul>
-<% //arreglo.forEach((numero)=>{           %>
-    <li><%= // numero          %></li>
-<%           // })            %>
+<% //arreglo.forEach((numero)=>{            %>
+    <li><%= // numero           %></li>
+<%            // })             %>
 </ul>
 -->
 
@@ -418,8 +418,18 @@
                     return ciudad.idPais === +valorActualPais;
                 }
             );
-        matarHijos();
-        llenarCiudades(ciudadesFiltradas);
+
+        const url = 'http://localhost:3000/Usuario';
+        $.get(
+            url + '/' + valorActualPais, // URL
+            (datos) => {  // Callback
+                const arregloCiudades = [datos];
+                matarHijos();
+                llenarCiudades(arregloCiudades);
+            }
+        )
+
+
     }
 
     function llenarCiudades(arregloCiudades) {
@@ -435,7 +445,7 @@
     }
 
     function matarHijos() { //AKA eliminarLasOpciones
-        while(etiquetaSelectCiudades.firstChild){
+        while (etiquetaSelectCiudades.firstChild) {
             etiquetaSelectCiudades.removeChild(etiquetaSelectCiudades.firstChild);
         }
     }
