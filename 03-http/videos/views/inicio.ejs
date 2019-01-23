@@ -19,14 +19,6 @@
 </head>
 <body>
 
-<script src="/js/jquery.min.js">
-</script>
-<script src="/js/popper.js">
-</script>
-
-<script src="/bootstrap/js/bootstrap.js">
-</script>
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -151,14 +143,6 @@
     <br>
     <br>
 
-    <script>
-        $(function () {
-            $('.bootstrap-popover')
-                .popover({
-                    container: 'body'
-                })
-        })
-    </script>
 
     <button type="button"
             class="bootstrap-popover btn btn-outline-warning btn-block"
@@ -170,10 +154,6 @@
     </button>
 
 
-    <script>
-        $('.toast').toast('show')
-    </script>
-
     <button type="button"
             class="bootstrap-popover btn btn-outline-warning btn-block">
         ABRIR NOTIFICACION
@@ -181,7 +161,8 @@
 
 
     <!-- Flexbox container for aligning the toasts -->
-    <div aria-live="polite" aria-atomic="true" class="TOAST d-flex justify-content-center align-items-center" style="min-height: 200px;">
+    <div aria-live="polite" aria-atomic="true" class="TOAST d-flex justify-content-center align-items-center"
+         style="min-height: 200px;">
 
         <!-- Then put toasts within -->
         <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -210,6 +191,33 @@
 
     <% var apellido = 'Eguez' %>
     <!-- h1 -> Header 1 -->
+
+
+    <form action="">
+        <div class="form-group">
+            <label for="paises">Paises</label>
+            <select class="form-control"
+                    name="pais"
+                    id="paises">
+                <option value="1">Ecuador</option>
+                <option value="2">Argentina</option>
+                <option value="3">Japon</option>
+                <option value="4">Francia</option>
+                <option value="5">Australia</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ciudades">Ciudades</label>
+            <select disabled
+                    class="form-control"
+                    name="ciudad"
+                    id="ciudades">
+
+            </select>
+        </div>
+    </form>
+
+
     <h1> Lista de usuarios</h1>
     <p>Crea, edita, actualiza y busca a usuarios. Puedes buscar
         usuarios por nombre o biografia.
@@ -217,31 +225,6 @@
     <!-- p -> parrafo -->
 
     <!-- a -> anchor-->
-
-
-    <script>
-        function holaMundo(evento) {
-            console.log(evento)
-
-            evento.preventDefault();
-
-            const respuesta = confirm('¿Estas seguro?')
-
-            console.log('Hola mundo')
-        }
-
-        function borrar(evento) {
-
-            const respuesta = confirm('¿Estas seguro?')
-
-            if (!respuesta) {
-                event.preventDefault();
-            }
-
-        }
-
-
-    </script>
 
 
     <!-- <a href="http://www.google.com"
@@ -293,9 +276,9 @@
     <!-- li -> list item -->
     <!--
 <ul>
-<% //arreglo.forEach((numero)=>{       %>
-    <li><%= // numero      %></li>
-<%       // })        %>
+<% //arreglo.forEach((numero)=>{           %>
+    <li><%= // numero          %></li>
+<%           // })            %>
 </ul>
 -->
 
@@ -344,6 +327,131 @@
 
 
 </div>
+
+
+<script src="/js/jquery.min.js">
+</script>
+<script src="/js/popper.js">
+</script>
+
+<script src="/bootstrap/js/bootstrap.js">
+</script>
+<script>
+    function holaMundo(evento) {
+        console.log(evento)
+
+        evento.preventDefault();
+
+        const respuesta = confirm('¿Estas seguro?')
+
+        console.log('Hola mundo')
+    }
+
+    function borrar(evento) {
+
+        const respuesta = confirm('¿Estas seguro?')
+
+        if (!respuesta) {
+            event.preventDefault();
+        }
+
+    }
+
+
+</script>
+<script>
+    $(function () {
+        $('.bootstrap-popover')
+            .popover({
+                container: 'body'
+            })
+    })
+</script>
+<script>
+    $('.toast').toast('show')
+</script>
+
+<script>
+
+    const etiquetaSelectPaises = document
+        .getElementById('paises');
+
+    const etiquetaSelectCiudades = document
+        .getElementById('ciudades');
+
+    const ciudades = [
+        {
+            idPais: 1,
+            nombre: 'Quito',
+            id: 1
+        },
+        {
+            idPais: 2,
+            nombre: 'Buenos Aires',
+            id: 2
+        },
+        {
+            idPais: 3,
+            nombre: 'Tokyo',
+            id: 3
+        },
+        {
+            idPais: 4,
+            nombre: 'Paris',
+            id: 4
+        },
+        {
+            idPais: 5,
+            nombre: 'Sidney',
+            id: 5
+        }
+    ]
+
+
+    etiquetaSelectPaises.onchange = (evento) => {
+        const valorActualPais = etiquetaSelectPaises.value;
+        etiquetaSelectCiudades.disabled = false;
+
+        const ciudadesFiltradas = ciudades
+            .filter(
+                (ciudad) => {
+                    return ciudad.idPais === +valorActualPais;
+                }
+            );
+        matarHijos();
+        llenarCiudades(ciudadesFiltradas);
+    }
+
+    function llenarCiudades(arregloCiudades) {
+        arregloCiudades
+            .forEach(
+                (ciudad) => {
+                    const nuevaOption = document.createElement('option');
+                    nuevaOption.value = ciudad.id;
+                    nuevaOption.innerText = ciudad.nombre;
+                    etiquetaSelectCiudades.appendChild(nuevaOption);
+                }
+            )
+    }
+
+    function matarHijos() { //AKA eliminarLasOpciones
+        while(etiquetaSelectCiudades.firstChild){
+            etiquetaSelectCiudades.removeChild(etiquetaSelectCiudades.firstChild);
+        }
+    }
+
+
+    // Cuando se cambie el valor
+    // Tomar el valor actual del select
+
+    // Si yo ya escojo un pais
+    // cargo las ciudades de ese pais
+    // HTTP -> GET RESTFUL id
+    // Ciudades
+
+    // Cargarlas en el select de ciudades
+
+</script>
 
 
 </body>

@@ -15,6 +15,15 @@ export class UsuarioController {
 
     }
 
+    @Get(':id')
+    obtenerPorId(
+        @Param('id') idUsuario
+    ){
+        return this._usuarioService.buscarPorId(+idUsuario);
+    }
+
+
+
     @Get('inicio')
     async inicio(
         @Res() response,
